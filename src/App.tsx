@@ -1,7 +1,7 @@
-import { get } from "./util/http";
-import { type Skip } from "./components/Skips";
-import Skips from "./components/Skips";
-import ErrorMessage from "./components/ErrorMessage";
+import { get } from "./util/http.ts";
+import { type Skip } from "./components/Skips.tsx";
+import Skips from "./components/Skips.tsx";
+import ErrorMessage from "./components/ErrorMessage.tsx";
 import "./App.css";
 import { useEffect, useState } from "react";
 
@@ -39,7 +39,7 @@ function App() {
           id: skip.id,
           size: skip.size,
           hire_period_days: skip.hire_period_days,
-          price_before_vat: skip.hire_period_days,
+          price_before_vat: skip.price_before_vat,
           allowed_on_road: skip.allowed_on_road,
         }));
         setSkips(skips);
@@ -57,16 +57,16 @@ function App() {
   }, []);
 
   if (isFetching) {
-    return <div>Fetching skips...</div>;
+    return <div className="text-center">Fetching skips...</div>;
   }
 
   if (error) {
     return <ErrorMessage text={error} />;
   }
   return (
-    <div>
+    <main className="max-w-[80rem] mx-auto px-4 sm:px-6 lg:px-8 bg-[#111827] text-white">
       <Skips skips={skips} />
-    </div>
+    </main>
   );
 }
 
