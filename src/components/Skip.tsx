@@ -9,6 +9,7 @@ type SkipProps = {
 function YardSkip({ skip, onSelect, isSelected = false }: SkipProps) {
   return (
     <div
+      data-testid="skip-card"
       className={`rounded-lg shadow-md overflow-hidden flex flex-col h-full 
         border transition-all duration-200 cursor-pointer
         ${

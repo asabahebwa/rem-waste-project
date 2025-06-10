@@ -39,12 +39,14 @@ function Skips({
         ))}
       </div>
       {skips.length > 0 && (
-        <SelectedSkip
-          selectedSkip={selectedSkip}
-          selectedSkipId={selectedSkipId}
-        />
+        <>
+          <SelectedSkip
+            selectedSkip={selectedSkip}
+            selectedSkipId={selectedSkipId}
+          />
+          <NavButtons selectedSkipId={selectedSkipId} />
+        </>
       )}
-      {skips.length > 0 && <NavButtons selectedSkipId={selectedSkipId} />}
     </div>
   );
 }

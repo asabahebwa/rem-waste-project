@@ -3,15 +3,9 @@ type NavButtonsProps = {
 };
 
 function NavButtons({ selectedSkipId }: NavButtonsProps) {
-  const handleBack = () => {};
-
-  const handleContinue = () => {};
   return (
     <div className="flex justify-between w-full mt-8 mb-8">
-      <button
-        onClick={handleBack}
-        className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-gray-400 rounded-md transition duration-300 font-medium cursor-pointer flex items-center"
-      >
+      <button className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-gray-400 rounded-md transition duration-300 font-medium cursor-pointer flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 mr-2"
@@ -28,7 +22,6 @@ function NavButtons({ selectedSkipId }: NavButtonsProps) {
       </button>
 
       <button
-        onClick={handleContinue}
         disabled={!selectedSkipId}
         className={`px-6 py-2 rounded-md transition duration-300 font-medium flex items-center ${
           selectedSkipId
