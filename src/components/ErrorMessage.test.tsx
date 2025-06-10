@@ -7,7 +7,6 @@ test("renders error message with text", () => {
 
   const heading = screen.getByRole("heading");
 
-  console.log(heading.textContent);
   expect(heading).toBeInTheDocument();
   expect(heading.textContent).toBe("An error occured");
 });
