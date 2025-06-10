@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
 import YardSkip from "./Skip.tsx";
-import StepHeader, { type BookingStep } from "./StepHeader.tsx";
 
 export type Skip = {
   id: number;
@@ -12,44 +10,23 @@ export type Skip = {
 
 type SkipsProps = {
   skips: Skip[];
+  selectedSkip: Skip | undefined;
+  handleSelectSkip: (skipId: number) => void;
+  selectedSkipId: number | null;
 };
 
-function Skips({ skips }: SkipsProps) {
-  const [selectedSkipId, setSelectedSkipId] = useState<number | null>(null);
-  const [completedSteps, setCompletedSteps] = useState<BookingStep[]>([
-    "postcode",
-    "wasteType",
-  ]);
-  const currentStep: BookingStep = "selectSkip";
-
-  const selectedSkip = skips.find((skip: Skip) => skip.id === selectedSkipId);
-
-  useEffect(() => {
-    if (selectedSkipId) {
-      if (!completedSteps.includes("selectSkip")) {
-        setCompletedSteps([...completedSteps, "selectSkip"]);
-      }
-    } else {
-      // If skip selection was removed, update completed steps
-      if (completedSteps.includes("selectSkip")) {
-        setCompletedSteps(
-          completedSteps.filter((step) => step !== "selectSkip")
-        );
-      }
-    }
-  }, [selectedSkipId, completedSteps]);
-
-  const handleSelectSkip = (skipId: number) => {
-    setSelectedSkipId(skipId);
-  };
-
+function Skips({
+  skips,
+  selectedSkip,
+  handleSelectSkip,
+  selectedSkipId,
+}: SkipsProps) {
   const handleBack = () => {};
 
   const handleContinue = () => {};
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <StepHeader completedSteps={completedSteps} currentStep={currentStep} />
       <h1 className="text-2xl font-bold mb-4 mt-4">Choose your skip size</h1>
       <p className="mb-4">Select the skip size that best suits your needs</p>
 
@@ -58,7 +35,7 @@ function Skips({ skips }: SkipsProps) {
           <YardSkip
             key={skip.id}
             skip={skip}
-            onSelect={handleSelectSkip}
+            onSelect={() => handleSelectSkip(skip.id)}
             isSelected={selectedSkipId === skip.id}
           />
         ))}
