@@ -4,6 +4,10 @@ I created this demo with React + TypeScript + Vite and installed Tailwind CSS as
 
 I retrieved skip data from the API using built-in fetch.
 
+## Running the app locally
+
+You need to clone the repo, navigate to the root folder and run `npm install` to intall dependencies. To see the app locally in your browser, run `npm run dev`
+
 ## Testing
 
 I added unit tests using React Testing Library and Jest. Use `npm run test` to run tests normally in the terminal. To run tests in watch mode, run `npm run test:watch`, to see the code coverage, you need to run `npm run test:coverage`.
