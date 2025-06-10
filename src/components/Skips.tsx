@@ -1,5 +1,6 @@
 import NavButtons from "./NavButtons.tsx";
 import YardSkip from "./Skip.tsx";
+import SelectedSkip from "./SelectedSkip.tsx";
 
 export type Skip = {
   id: number;
@@ -37,18 +38,11 @@ function Skips({
           />
         ))}
       </div>
-      {selectedSkipId ? (
-        <div className="mt-8 p-4 bg-gray-800 rounded-md w-full">
-          <p className="text-white-800">
-            You've selected a {selectedSkip?.size} Yard Skip for a{" "}
-            {selectedSkip?.hire_period_days} day hire period at £
-            {selectedSkip?.price_before_vat}. Continue to the next step.
-          </p>
-        </div>
-      ) : (
-        <div className="mt-8 p-4 bg-gray-800 rounded-md w-full">
-          <p className="text-gray-400">Please select a skip to continue.</p>
-        </div>
+      {skips.length > 0 && (
+        <SelectedSkip
+          selectedSkip={selectedSkip}
+          selectedSkipId={selectedSkipId}
+        />
       )}
       {skips.length > 0 && <NavButtons selectedSkipId={selectedSkipId} />}
     </div>
