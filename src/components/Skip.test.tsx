@@ -39,7 +39,7 @@ test("displays the appropriate image", async () => {
   expect(image).toBeInTheDocument();
   expect(image).toHaveAttribute(
     "src",
-    `https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes/${skip.size}-yarder-skip.jpg`
+    `https://weathersasa.lon1.cdn.digitaloceanspaces.com/pixelmapstudio/images/${skip.size}-yard-skip.png`
   );
   expect(image).toHaveAttribute("alt", `${skip.size} Yard Skip`);
 });
@@ -61,6 +61,5 @@ test("clicking on the skip should call onSelect", async () => {
   expect(onSelectMock).toHaveBeenCalled();
   expect(onSelectMock).toHaveBeenCalledWith(skip.id);
   expect(onSelectMock).toHaveBeenCalledTimes(1);
-  expect(skipCard).toHaveClass("text-white");  
-
+  expect(skipCard).toHaveClass("text-white");
 });
