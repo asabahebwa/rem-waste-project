@@ -21,7 +21,7 @@ function YardSkip({ skip, onSelect, isSelected = false }: SkipProps) {
     >
       <div className="relative">
         <img
-          src={`https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes/${skip.size}-yarder-skip.jpg`}
+          src={`https://weathersasa.lon1.cdn.digitaloceanspaces.com/pixelmapstudio/images/${skip.size}-yard-skip.png`}
           alt={`${skip.size} Yard Skip`}
           className="w-full h-48 object-cover"
         />
