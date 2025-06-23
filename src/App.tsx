@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     if (selectedSkipId && !completedSteps.includes("selectSkip")) {
-      setCompletedSteps([...completedSteps, "selectSkip"]);
+      setCompletedSteps((prevSteps) => [...prevSteps, "selectSkip"]);
     }
   }, [selectedSkipId, completedSteps]);
 
