@@ -1,11 +1,12 @@
-import { type ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get } from "./util/http.ts";
 import { type Skip } from "./components/Skips.tsx";
 import Skips from "./components/Skips.tsx";
 import ErrorMessage from "./components/ErrorMessage.tsx";
-import StepHeader, { type BookingStep } from "./components/StepHeader.tsx";
-import "./App.css";
 import Loading from "./components/Loading.tsx";
+import Layout from "./components/Layout.tsx";
+import { type BookingStep } from "./components/StepHeader.tsx";
+import "./App.css";
 
 type RawSkip = {
   id: number;
@@ -24,10 +25,6 @@ type RawSkip = {
   allows_heavy_waste: boolean;
 };
 
-type LayoutProps = {
-  children: ReactNode;
-};
-
 function App() {
   const [skips, setSkips] = useState<Skip[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -42,16 +39,8 @@ function App() {
   const selectedSkip = skips.find((skip: Skip) => skip.id === selectedSkipId);
 
   useEffect(() => {
-    if (selectedSkipId) {
-      if (!completedSteps.includes("selectSkip")) {
-        setCompletedSteps([...completedSteps, "selectSkip"]);
-      }
-    } else {
-      if (completedSteps.includes("selectSkip")) {
-        setCompletedSteps(
-          completedSteps.filter((step) => step !== "selectSkip")
-        );
-      }
+    if (selectedSkipId && !completedSteps.includes("selectSkip")) {
+      setCompletedSteps([...completedSteps, "selectSkip"]);
     }
   }, [selectedSkipId, completedSteps]);
 
@@ -88,31 +77,15 @@ function App() {
     fetchSkips();
   }, []);
 
-  function Layout({ children }: LayoutProps) {
-    return (
-      <div className="bg-[#111827] min-h-screen">
-        <header className="max-w-[80rem] mx-auto bg-[#111827] text-white border-b border-gray-800 pt-4">
-          <StepHeader
-            completedSteps={completedSteps}
-            currentStep={currentStep}
-          />
-        </header>
-        <main className="max-w-[80rem] mx-auto px-4 sm:px-6 lg:px-8 bg-[#111827] text-white min-h-screen">
-          {children}
-        </main>
-      </div>
-    );
-  }
-
   if (error) {
     return (
-      <Layout>
+      <Layout completedSteps={completedSteps} currentStep={currentStep}>
         <ErrorMessage text={error} />
       </Layout>
     );
   }
   return (
-    <Layout>
+    <Layout completedSteps={completedSteps} currentStep={currentStep}>
       {isFetching ? (
         <Loading />
       ) : (

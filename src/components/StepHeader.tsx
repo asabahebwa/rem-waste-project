@@ -160,6 +160,7 @@ function StepHeader({ completedSteps, currentStep }: StepHeaderProps) {
           <React.Fragment key={step.id}>
             <div className="flex flex-col items-center">
               <div
+                data-testid={`step-${step.id}`}
                 className={`
                   w-12 h-12 rounded-full flex items-center justify-center mb-2
                   ${

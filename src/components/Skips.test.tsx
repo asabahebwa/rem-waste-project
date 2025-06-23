@@ -35,29 +35,34 @@ const renderComponent = () => {
   };
 };
 
-test("renders the correct number of skips", async () => {
-  renderComponent();
-
-  const headings = await screen.findAllByRole("heading");
-  expect(headings.length).toBe(3);
-});
-
-test("renders the correct skips heading", async () => {
-  renderComponent();
-
-  const skipsHeading = await screen.findByRole("heading", {
-    name: /choose your skip size/i,
+describe("Skips Component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
-  expect(skipsHeading).toBeInTheDocument();
-  expect(skipsHeading.textContent).toBe("Choose your skip size");
-});
+  test("renders the correct number of skips", async () => {
+    renderComponent();
 
-test("allows selecting a skip", async () => {
-  const { mockHandleSelectSkip } = renderComponent();
+    const headings = await screen.findAllByRole("heading");
+    expect(headings.length).toBe(3);
+  });
 
-  const skipCards = await screen.findAllByTestId("skip-card");
-  await user.click(skipCards[0]);
+  test("renders the correct skips heading", async () => {
+    renderComponent();
 
-  expect(mockHandleSelectSkip).toHaveBeenCalledTimes(1);
-  expect(mockHandleSelectSkip).toHaveBeenCalledWith(1);
+    const skipsHeading = await screen.findByRole("heading", {
+      name: /choose your skip size/i,
+    });
+    expect(skipsHeading).toBeInTheDocument();
+    expect(skipsHeading.textContent).toBe("Choose your skip size");
+  });
+
+  test("allows selecting a skip", async () => {
+    const { mockHandleSelectSkip } = renderComponent();
+
+    const skipCards = await screen.findAllByTestId("skip-card");
+    await user.click(skipCards[0]);
+
+    expect(mockHandleSelectSkip).toHaveBeenCalledTimes(1);
+    expect(mockHandleSelectSkip).toHaveBeenCalledWith(1);
+  });
 });

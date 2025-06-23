@@ -22,4 +22,4 @@ I used **React Testing Library** because it encourages testing components in a w
 **Jest** was chosen as the test runner and assertion library because it's fast, easy to configure with React, and has built-in features like mocking and code coverage. It integrates seamlessly with React Testing Library and provides a solid foundation for writing both unit and integration tests.
 
 Together, they offer a modern, developer-friendly setup for writing reliable front-end tests.
-![test coverage](https://github.com/asabahebwa/rem-waste-project/blob/master/src/assets/testcoverage.png)
+![test coverage](https://github.com/asabahebwa/rem-waste-project/blob/master/src/assets/codecoverage.png)

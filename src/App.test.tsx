@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import App from "./App";
 import { get } from "./util/http";
 
@@ -71,11 +72,11 @@ describe("App Component", () => {
     });
 
     // Check that skips are displayed (look for specific text that would appear)
-    expect(screen.getByText("£100")).toBeInTheDocument(); // Price of first skip
-    expect(screen.getByText("£150")).toBeInTheDocument(); // Price of second skip
+    expect(screen.getByText("£100")).toBeInTheDocument();
+    expect(screen.getByText("£150")).toBeInTheDocument();
   });
 
-  test("displays error message when fetch fails", async () => {
+  test("displays specific error message when fetch fails and the API throws an Error object", async () => {
     // Mock API failure
     mockedGet.mockRejectedValue(new Error("Failed to fetch data"));
 
@@ -84,6 +85,64 @@ describe("App Component", () => {
     // Wait for error message to appear
     await waitFor(() => {
       expect(screen.getByText(/failed to fetch data/i)).toBeInTheDocument();
+      expect(
+        screen.queryByText(/An unknown error occurred/i)
+      ).not.toBeInTheDocument();
     });
+  });
+
+  test("displays 'An unknown error occurred' when API throws non-Error object", async () => {
+    // Mock the API call to reject with a non-Error object
+    mockedGet.mockImplementation(() => {
+      // Throw something that's not an Error instance
+      return Promise.reject("Not an error object");
+    });
+
+    render(<App />);
+
+    // Wait for the error message to appear
+    await waitFor(() => {
+      expect(screen.getByText("An unknown error occurred")).toBeInTheDocument();
+    });
+  });
+
+  test("selects a skip and changes the button's color", async () => {
+    mockedGet.mockResolvedValue(mockSkipsData);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.queryByText(/fetching skips/i)).not.toBeInTheDocument();
+    });
+
+    const skipCards = await screen.findAllByRole("button", {
+      name: /select this skip/i,
+    });
+
+    await user.click(skipCards[0]);
+
+    expect(skipCards[0]).toHaveTextContent("Selected");
+    expect(skipCards[0]).toHaveClass("bg-blue-600");
+    expect(skipCards[1]).toHaveTextContent("Select This Skip");
+  });
+
+  test("updates completed steps when a skip is selected", async () => {
+    mockedGet.mockResolvedValue(mockSkipsData);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.queryByText(/fetching skips/i)).not.toBeInTheDocument();
+    });
+
+    const skipCards = await screen.findAllByRole("button", {
+      name: /select this skip/i,
+    });
+
+    await user.click(skipCards[0]);
+
+    const selectSkipStep = screen.getByTestId("step-selectSkip");
+    expect(selectSkipStep).toBeInTheDocument();
+    expect(selectSkipStep).toHaveClass("bg-blue-500 text-white");
   });
 });
