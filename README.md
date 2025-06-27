@@ -15,11 +15,17 @@ You need to clone the repo, navigate to the root folder and run `npm install` to
 
 ## Testing
 
-I added unit tests using **React Testing Library** and **Jest**. Use `npm run test` to run tests normally in the terminal. To run tests in watch mode, run `npm run test:watch`, to see the code coverage, you need to run `npm run test:coverage`.
+I added unit tests using **React Testing Library** and **Jest**. Did e2e testing with **Cypress**. Use `npm run test` to run unit tests normally in the terminal. To run unit tests in watch mode, run `npm run test:watch`, to see the code coverage, you need to run `npm run test:coverage`. For the e2e tests, you need to run `npx cypress open`
 
 I used **React Testing Library** because it encourages testing components in a way that reflects how users actually interact with the app. It focuses on testing UI behavior rather than implementation details, which leads to more robust, maintainable tests that are less likely to break with refactors.
 
 **Jest** was chosen as the test runner and assertion library because it's fast, easy to configure with React, and has built-in features like mocking and code coverage. It integrates seamlessly with React Testing Library and provides a solid foundation for writing both unit and integration tests.
 
+**Cypress** Cypress offers fast, reliable end-to-end testing with real-time reloading and time-travel debugging, making it ideal for modern web applications. Its all-in-one architecture runs in the browser, providing deep visibility into test behavior and easy setup
+
+
 Together, they offer a modern, developer-friendly setup for writing reliable front-end tests.
 ![test coverage](https://github.com/asabahebwa/rem-waste-project/blob/master/src/assets/codecoverage.png)
+
+![e2e cypress](https://github.com/asabahebwa/rem-waste-project/blob/master/src/assets/cypress.png)
+
